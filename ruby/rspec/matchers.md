@@ -16,7 +16,7 @@ Matcher       | Passes if...             | Available aliases
 ------------- | ------------------------ | -----------------
 `be_truthy`   | `a != nil && a != false` | `a_truthy_value`
 `be true`     | `a == true`              | 
-`be_falsey`   | `a == nil || a == false` | `be_falsy`, `a_falsey_value`, `a_falsy_value`
+`be_falsey`   | `a == nil or a == false` | `be_falsy`, `a_falsey_value`, `a_falsy_value`
 `be false`    | `a == false`             |
 `be_nil`      | `a.nil?`                 | `a_nil_value`
 
@@ -24,9 +24,8 @@ Matcher       | Passes if...             | Available aliases
 
 Matcher                    | Passes if...       | Available aliases      
 -------------------------- | ------------------ | ----------------- 
-`be_an_instance_of(klass)` | `a.class == klass` | `be_instance_of(klass)` 
-                           |                    | `an_instance_of(klass)` 
-`be_a_kind_of(klass)`      | `a.is_a(klass)`    | `a.is_a?(klass)`, `be_a(klass)`, `be_kind_of(klass)`, `a_kind_of(klass)`      
+`be_an_instance_of(klass)` | `a.class == klass` | `be_instance_of(klass)`, `an_instance_of(klass)`
+`be_a_kind_of(klass)`      | `a.is_a(klass)`    | `a.is_a?(klass)`, `be_a(klass)`,<br>`be_kind_of(klass)`, `a_kind_of(klass)`
 
 ### Operator Comparisons
 
@@ -44,7 +43,7 @@ Matcher   | Passes if... | Available aliases
 
 Matcher                       | Passes if...                 | Available aliases      
 ----------------------------- | ---------------------------- | ----------------- 
-`be_between(1, 10).inclusive` |`a >= 1 && a <= 10`           | `be_between(1, 10)`, `a_value_between(1, 10).inclusive`, `a_value_between(1, 10)`
+`be_between(1, 10).inclusive` |`a >= 1 && a <= 10`           | `be_between(1, 10)`,<br>`a_value_between(1, 10).inclusive`,<br>`a_value_between(1, 10)`
 `be_between(1, 10).exclusive` | `a > 1 && a < 10`            | `a_value_between(1, 10).exclusive`
 `be_within(0.1).of(x)`        | `(a - x).abs <= 0.1`         | `a_value_within(0.1).of(x)`
 `be_within(5).percent_of(x)`  | `(a - x).abs <= (0.05 * x)`  | `a_value_within(5).percent_of(x)`
@@ -54,15 +53,10 @@ Matcher                       | Passes if...                 | Available aliases
 
 Matcher                    | Passes if...                            | Available aliases      
 -------------------------- | --------------------------------------- | ----------------- 
-`contain_exactly(2, 1, 3)` | `a.sort == [2, 1, 3].sort`              | `match_array([2, 1, 3])`
-                           |                                         | `a_collection_containing_exactly(2, 1, 3)`
-`start_with(x, y)`         | `a[0] == x && a[1] == y`                | `a_collection_starting_with(x, y)`
-                           |                                         | `a_string_starting_with(x, y)`
-`end_with(x, y)`           | `a[-1] == x && a[-2] == y`              | `a_collection_starting_with(x, y)` (?????)
-                           |                                         | `a_string_starting_with(x, y)` (????)
-`include(x, y)`            | Include x and y as values or keys (\*)  | `a_collection_including(x, y)`
-                           |                                         | `a_string_including(x, y)`
-                           |                                         | `a_hash_including(x, y)`
+`contain_exactly(2, 1, 3)` | `a.sort == [2, 1, 3].sort`              | `match_array([2, 1, 3])`,<br>`a_collection_containing_exactly(2, 1, 3)`
+`start_with(x, y)`         | `a[0] == x && a[1] == y`                | `a_collection_starting_with(x, y)`,<br>`a_string_starting_with(x, y)`
+`end_with(x, y)`           | `a[-1] == x && a[-2] == y`              | `a_collection_ending_with(x, y)`,<br>`a_string_ending_with(x, y)`
+`include(x, y)`            | Include x and y as values or keys (\*)  | `a_collection_including(x, y)`, `a_string_including(x, y)`,<br>`a_hash_including(x, y)`
 `include(w: x, y: z)`      | `a[:w] == :x && a[:y] == :z`            | `a_hash_including(w: x, y: z)`
 `all(matcher)`             | `a.all? { |e| matcher.matches?(e) }`    |
 `match(x: matcher, y: 3)`  | `matcher.matches?(a[:x]) && a[:y] == 3` | `an_object_matching(x: matcher, y: 3)`
