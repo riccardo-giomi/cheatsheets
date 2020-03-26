@@ -51,18 +51,18 @@ Matcher                       | Passes if...                 | Available aliases
 
 ### Strings and Collections
 
-Matcher                    | Passes if...                            | Available aliases      
--------------------------- | --------------------------------------- | ----------------- 
-`contain_exactly(2, 1, 3)` | `a.sort == [2, 1, 3].sort`              | `match_array([2, 1, 3])`,<br>`a_collection_containing_exactly(2, 1, 3)`
-`start_with(x, y)`         | `a[0] == x && a[1] == y`                | `a_collection_starting_with(x, y)`,<br>`a_string_starting_with(x, y)`
-`end_with(x, y)`           | `a[-1] == x && a[-2] == y`              | `a_collection_ending_with(x, y)`,<br>`a_string_ending_with(x, y)`
-`include(x, y)`            | Include x and y as values or keys (\*)  | `a_collection_including(x, y)`, `a_string_including(x, y)`,<br>`a_hash_including(x, y)`
-`include(w: x, y: z)`      | `a[:w] == :x && a[:y] == :z`            | `a_hash_including(w: x, y: z)`
-`all(matcher)`             | `a.all? { |e| matcher.matches?(e) }`    |
-`match(x: matcher, y: 3)`  | `matcher.matches?(a[:x]) && a[:y] == 3` | `an_object_matching(x: matcher, y: 3)`
-`match([3, matcher])`      | `a[0] == 3 && matcher.matches?(a[1])`   | `an_object_matching([3, matcher])`
-`match("pattern")`         | `a.match("pattern")`                    | `a_string_matching("pattern")`
-`match(/regex/)`           | `a.match(/regex/)`                      | `match_regex(/regex/)`, `a_string_matching(/regex/)`
+Matcher                    | Passes if...                              | Available aliases      
+-------------------------- | ----------------------------------------- | ----------------- 
+`contain_exactly(2, 1, 3)` | `a.sort == [2, 1, 3].sort`                | `match_array([2, 1, 3])`,<br>`a_collection_containing_exactly(2, 1, 3)`
+`start_with(x, y)`         | `a[0] == x && a[1] == y`                  | `a_collection_starting_with(x, y)`,<br>`a_string_starting_with(x, y)`
+`end_with(x, y)`           | `a[-1] == x && a[-2] == y`                | `a_collection_ending_with(x, y)`,<br>`a_string_ending_with(x, y)`
+`include(x, y)`            | Include x and y as values or keys (\*)    | `a_collection_including(x, y)`, `a_string_including(x, y)`,<br>`a_hash_including(x, y)`
+`include(w: x, y: z)`      | `a[:w] == :x && a[:y] == :z`              | `a_hash_including(w: x, y: z)`
+`all(matcher)`             | `a.all? { \|e\| matcher.matches?(e) }`    |
+`match(x: matcher, y: 3)`  | `matcher.matches?(a[:x]) && a[:y] == 3`   | `an_object_matching(x: matcher, y: 3)`
+`match([3, matcher])`      | `a[0] == 3 && matcher.matches?(a[1])`     | `an_object_matching([3, matcher])`
+`match("pattern")`         | `a.match("pattern")`                      | `a_string_matching("pattern")`
+`match(/regex/)`           | `a.match(/regex/)`                        | `match_regex(/regex/)`, `a_string_matching(/regex/)`
 
 \* `(a.include?(x) && a.include?(y)) || (a.key?(x) && a.key?(y))`
 
@@ -78,18 +78,18 @@ Matcher                            | Passes if...                               
 
 Matcher               | Passes if...                            | Available aliases      
 --------------------- | --------------------------------------- | ----------------- 
-`be_xyz`              | `a.xyz? || a.xyzs?`                     | `be_a_xyz`, `be_an_xyz`
-`be_foo(x, y, &b)`    | `a.foo(x, y, &b)? || a.foos(x, y, &b)?` | `be_a_foo(x, y, &b)`
+`be_xyz`              | `a.xyz? or a.xyzs?`                     | `be_a_xyz`, `be_an_xyz`
+`be_foo(x, y, &b)`    | `a.foo(x, y, &b)? or a.foos(x, y, &b)?` | `be_a_foo(x, y, &b)`
 `be_an_foo(x, y, &b)` | `have_xyz a.has_xyz?`                   | `have_foo(x, y, &b) a.has_foo(x, y, &b)?`
 
 ### Additional Matchers
 
-Matcher                           | Passes if...                        | Available aliases      
---------------------------------- | ----------------------------------- | ----------------- 
-`exist`                           | `a.exist? || a.exists?`             | `an_object_existing`
-`exist(x, y)`                     | `a.exist(x, y)? || a.exists(x, y)?` | `an_object_existing(x, y)`
-`satisfy { |x| ... }`             | Provided block returns true         | `an_object_satisfying { |x| ... }` 
-`satisfy("criteria") { |x| ... }` | Provided block returns true         | `an_object_satisfying("...") { |x| ... }`
+Matcher                             | Passes if...                        | Available aliases      
+----------------------------------- | ----------------------------------- | ----------------- 
+`exist`                             | `a.exist? or a.exists?`             | `an_object_existing`
+`exist(x, y)`                       | `a.exist(x, y)? or a.exists(x, y)?` | `an_object_existing(x, y)`
+`satisfy { \|x\| ... }`             | Provided block returns true         | `an_object_satisfying { \|x\| ... }` 
+`satisfy("criteria") { \|x\| ... }` | Provided block returns true         | `an_object_satisfying("...") { \|x\| ... }`
 
 ### Block Matchers
 
@@ -133,17 +133,17 @@ Matcher                                    | Passes if...                       
 
 ### Raising/Throwing
 
-Matcher                         | Passes if...                                                                 | Available aliases      
-------------------------------- | ---------------------------------------------------------------------------- | ----------------- 
-`raise_error("message")`        | Block raises an error and `error.message == "message"`                       | `raise_exception("message")`, `a_block_raising("message")`
-`raise_error("message")`        | Block raises an error and `error.message =~ /regexp/`                        | `raise_exception("message")`, `a_block_raising("message")`
-`error.is_a?(klass)`            | Block raises an error and `error.is_a?(klass)`                               | `raise_exception(klass)`, , `a_block_raising(kls)`
-`raise_error(klass, "message")` | Block raises an error and `error.is_a?(klass) && error.message == "message"` | `raise_exception(klass, "message")`, `a_block_raising(klass, "message")`
-`raise_error(klass, /regexp/)`  | Block raises an error and `error.is_a?(klass) && error.message =~ /regexp/`  | `raise_exception(klass, /regexp/)`, `a_block_raising(klass, /regexp/)`
-`raise_error { |err| ... })`    | Block raises an error and `raise_error` block returns true                   | `raise_exception { |err| ... }`, `a_block_raising { |err| ... }`
-`throw_symbol`                  | Block throws any symbol                                                      | `a_block_throwing`
-`throw_symbol(:sym)`            | Block throws symbol :sym                                                     | `a_block_throwing(:sym)`
-`throw_symbol(:sym, arg)`       | Block throws symbol :sym with argument arg                                   | `a_block_throwing(:sym, arg)`
+Matcher                           | Passes if...                                                                 | Available aliases      
+--------------------------------- | ---------------------------------------------------------------------------- | ----------------- 
+`raise_error("message")`          | Block raises an error and `error.message == "message"`                       | `raise_exception("message")`, `a_block_raising("message")`
+`raise_error("message")`          | Block raises an error and `error.message =~ /regexp/`                        | `raise_exception("message")`, `a_block_raising("message")`
+`error.is_a?(klass)`              | Block raises an error and `error.is_a?(klass)`                               | `raise_exception(klass)`, , `a_block_raising(kls)`
+`raise_error(klass, "message")`   | Block raises an error and `error.is_a?(klass) && error.message == "message"` | `raise_exception(klass, "message")`, `a_block_raising(klass, "message")`
+`raise_error(klass, /regexp/)`    | Block raises an error and `error.is_a?(klass) && error.message =~ /regexp/`  | `raise_exception(klass, /regexp/)`, `a_block_raising(klass, /regexp/)`
+`raise_error { \|err\| ... })`    | Block raises an error and `raise_error` block returns true                   | `raise_exception { \|err\| ... }`, `a_block_raising { \|err\| ... }`
+`throw_symbol`                    | Block throws any symbol                                                      | `a_block_throwing`
+`throw_symbol(:sym)`              | Block throws symbol :sym                                                     | `a_block_throwing(:sym)`
+`throw_symbol(:sym, arg)`         | Block throws symbol :sym with argument arg                                   | `a_block_throwing(:sym, arg)`
 
 
 
