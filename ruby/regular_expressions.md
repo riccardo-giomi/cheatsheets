@@ -1,6 +1,7 @@
-# Regular expressions
+Regular expressions
+===================
 
-## Valid email address
+### Valid email address
 
 Available directly through **URI::MailTo**:
 
