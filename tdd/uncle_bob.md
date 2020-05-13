@@ -19,8 +19,8 @@ Refactored version:
 
 * Write only enough production code to make the failing unit test pass.
 
-Transformations
-===============
+Transformation priority premise
+===============================
 
 When changing the code to pass a test, if you come to a decision point,
 there's two ways (or more) to transform the code to make it work, choose
