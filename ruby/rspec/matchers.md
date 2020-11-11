@@ -166,5 +166,5 @@ Matcher                                 | Passes if method called in block yield
 `yield_control.at_least(n).times`       | ...at least n times                                                                  | `a_block_yielding_control.at_least(n).times` 
 `yield_control.at_most(n).times`        | ...at most n times                                                                   | `a_block_yielding_control.at_most(n).times` 
 `yield_with_args(x, y)`                 | ...once with arguments that match x and y                                            | `a_block_yielding_with_args(x, y)`
-`yield_with__no_args`                   | ...once with no arguments                                                            | `a_block_yielding_with_no_args`
+`yield_with_no_args`                    | ...once with no arguments                                                            | `a_block_yielding_with_no_args`
 `yield_successive_args([a, b], [c, d])` | ...once with arguments that match a and b and once with arguments that match c and d | `a_block_yielding_successive_args([a, b], [c, d])`
