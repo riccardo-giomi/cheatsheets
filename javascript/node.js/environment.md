@@ -87,11 +87,36 @@ yarn global add npm
 npm rm -g npm
 ```
 
-### AVN
+### Automatic version switching
 
-- Automatic Version switching for Node.js
+- [avn](https://github.com/wbyoung/avn) seems to not be supported anymore, not
+  recommended at this time.
 
-```
-yarn global add avn avn-nvm
-```
+- My current personal zsh script to do the same job (WIP):
 
+  ```
+  autoload -U add-zsh-hook
+  load-node-version() {
+    if [[ -f .node-version && -r .node-version ]]; then
+      local new_version=$(<.node-version)
+      nvm use $new_version
+    fi
+  }
+  # place this after nvm initialization!
+  node-use-file-version() {
+    if [[ -f .nvmrc && -r .nvmrc ]]; then
+      nvm use
+    elif [[ -f .node-version && -r .node-version ]]; then
+      load-node-version
+    elif [[ "$(nvm version)" != "$(nvm version default)" ]]; then
+      echo "Reverting to nvm default version"
+      nvm use default
+    fi
+  }
+
+  add-zsh-hook chpwd node-use-file-version
+  node-use-file-version
+
+  ```
+
+  If this is used with the zsh-nvm oh-my-zsh's plugin, do not enable NVM_AUTO_USE.
